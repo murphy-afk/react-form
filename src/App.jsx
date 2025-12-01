@@ -4,15 +4,20 @@ import { articles } from './assets/articleData'
 
 
 function App() {
-  const [articleList, setArticleList] = useState(articles)
-  const [newArticle, setNewArticle] = useState('')
-  
+  const [articleList, setArticleList] = useState(articles);
+  const [newArticle, setNewArticle] = useState('');
+
   function handleSubmit(event) {
     event.preventDefault();
-    setArticleList([newArticle, ...articles]);
+    setArticleList([...articles, newArticle]);
     setNewArticle('');
   }
-
+  function removeArticle(toBeDeletedIndex) {
+    const updatedArticleList = articleList.filter((article, filterIndex) => {
+      return filterIndex !== toBeDeletedIndex;
+    });
+    setArticleList(updatedArticleList);
+  }
   return (
     <>
       <h1>Articles</h1>
@@ -20,7 +25,12 @@ function App() {
       <ul>
         {articleList.map((article, index) => {
           return (
-            <li key={index}>{article}</li>
+            <li key={index}>
+              <span>
+                {article}
+              </span>
+              <button onClick={() => removeArticle(index)}>X</button>
+            </li>
           )
         })}
       </ul>
@@ -29,7 +39,11 @@ function App() {
         <label htmlFor="newTitle">
           Input new article title
         </label>
-        <input id='newTitle' type="text" value={newArticle} onChange={(event) => setNewArticle(event.target.value)}/>
+        <input
+          id='newTitle'
+          type="text"
+          value={newArticle}
+          onChange={(event) => setNewArticle(event.target.value)} />
         <button>submit</button>
       </form>
     </>
