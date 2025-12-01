@@ -3,16 +3,18 @@ import './App.css'
 import { articles } from './assets/articleData'
 
 
-let disabled = true;
+// let disabled = true;
 function App() {
   const [articleList, setArticleList] = useState(articles);
   const [newArticle, setNewArticle] = useState('');
+  const [disabled, setDisabled] = useState(true)
 
   function handleSubmit(event) {
     event.preventDefault();
     if (newArticle != '') {
       setArticleList([...articleList, newArticle]);
-      disabled = true;
+      // disabled = true;
+      setDisabled(true)
       setNewArticle('');
     }
     else alert("can't leave field empty")
@@ -49,7 +51,7 @@ function App() {
           type="text"
           value={newArticle}
           onChange={(event) => {
-            if (newArticle != '') disabled = false;
+            if (newArticle != '') setDisabled(false);
             return (
               setNewArticle(event.target.value)
             )
