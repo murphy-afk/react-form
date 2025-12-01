@@ -3,6 +3,7 @@ import './App.css'
 import { articles } from './assets/articleData'
 
 
+let disabled = true;
 function App() {
   const [articleList, setArticleList] = useState(articles);
   const [newArticle, setNewArticle] = useState('');
@@ -10,6 +11,7 @@ function App() {
   function handleSubmit(event) {
     event.preventDefault();
     setArticleList([...articleList, newArticle]);
+    disabled = true;
     setNewArticle('');
   }
   function removeArticle(toBeDeletedIndex) {
@@ -43,8 +45,13 @@ function App() {
           id='newTitle'
           type="text"
           value={newArticle}
-          onChange={(event) => setNewArticle(event.target.value)} />
-        <button>submit</button>
+          onChange={(event) => {
+            if (newArticle != '') disabled = false;
+            return (
+              setNewArticle(event.target.value)
+            )
+          }} />
+        <button disabled={disabled}>submit</button>
       </form>
     </>
   )
