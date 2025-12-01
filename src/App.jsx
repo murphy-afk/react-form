@@ -9,7 +9,7 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setArticleList([...articles, newArticle]);
+    setArticleList([...articleList, newArticle]);
     setNewArticle('');
   }
   function removeArticle(toBeDeletedIndex) {
