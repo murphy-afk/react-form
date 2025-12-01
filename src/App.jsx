@@ -25,7 +25,7 @@ function App() {
       <ul>
         {articleList.map((article, index) => {
           return (
-            <li key={index}>
+            <li key={index} className='article'>
               <span>
                 {article}
               </span>
