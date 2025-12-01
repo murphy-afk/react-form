@@ -10,9 +10,12 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setArticleList([...articleList, newArticle]);
-    disabled = true;
-    setNewArticle('');
+    if (newArticle != '') {
+      setArticleList([...articleList, newArticle]);
+      disabled = true;
+      setNewArticle('');
+    }
+    else alert("can't leave field empty")
   }
   function removeArticle(toBeDeletedIndex) {
     const updatedArticleList = articleList.filter((article, filterIndex) => {
