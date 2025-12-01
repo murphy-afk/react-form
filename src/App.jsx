@@ -2,30 +2,35 @@ import { useState } from 'react'
 import './App.css'
 import { articles } from './assets/articleData'
 
-function handleChange() {
-  return 
-}
 
 function App() {
-  const [newArticle, setNewArticle] = useState('new article')
+  const [articleList, setArticleList] = useState(articles)
+  const [newArticle, setNewArticle] = useState('')
+  
+  function handleSubmit(event) {
+    event.preventDefault();
+    setArticleList([newArticle, ...articles]);
+    setNewArticle('');
+  }
 
   return (
     <>
       <h1>Articles</h1>
       {/* article list  */}
       <ul>
-        {articles.map((article, index) => {
+        {articleList.map((article, index) => {
           return (
             <li key={index}>{article}</li>
           )
         })}
       </ul>
       {/* new article form  */}
-      <form action="submit">
+      <form onSubmit={handleSubmit}>
         <label htmlFor="newTitle">
           Input new article title
         </label>
-        <input id='newTitle' type="text" value={newArticle} onChange={handleChange}/>
+        <input id='newTitle' type="text" value={newArticle} onChange={(event) => setNewArticle(event.target.value)}/>
+        <button>submit</button>
       </form>
     </>
   )
