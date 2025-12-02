@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import './App.css'
 import { articles } from './assets/articleData'
+import Article from './components/Article';
 
 
-// let disabled = true;
 function App() {
   const [articleList, setArticleList] = useState(articles);
   const [newArticle, setNewArticle] = useState('');
@@ -13,8 +13,6 @@ function App() {
     event.preventDefault();
     if (newArticle != '') {
       setArticleList([...articleList, newArticle]);
-      // disabled = true;
-      setDisabled(true)
       setNewArticle('');
     }
     else alert("can't leave field empty")
@@ -32,12 +30,8 @@ function App() {
       <ul>
         {articleList.map((article, index) => {
           return (
-            <li key={index} className='article'>
-              <span>
-                {article}
-              </span>
-              <button onClick={() => removeArticle(index)}>X</button>
-            </li>
+            <Article article={article} remove={() => removeArticle(index)} i={index} />
+
           )
         })}
       </ul>
@@ -51,10 +45,9 @@ function App() {
           type="text"
           value={newArticle}
           onChange={(event) => {
-            if (newArticle != '') setDisabled(false);
-            return (
-              setNewArticle(event.target.value)
-            )
+            const inputValue = event.target.value;
+            setDisabled(inputValue === '');
+            setNewArticle(inputValue);
           }} />
         <button disabled={disabled}>submit</button>
       </form>
