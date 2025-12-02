@@ -7,15 +7,15 @@ import Article from './components/Article';
 function App() {
   const [articleList, setArticleList] = useState(articles);
   const [newArticle, setNewArticle] = useState('');
-  const [disabled, setDisabled] = useState(true)
+  // const [disabled, setDisabled] = useState(true)
+
+  const disabled = newArticle.trim() === '';
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (newArticle != '') {
-      setArticleList([...articleList, newArticle]);
-      setNewArticle('');
-    }
-    else alert("can't leave field empty")
+    setArticleList([...articleList, newArticle]);
+    setNewArticle('');
+
   }
   function removeArticle(toBeDeletedIndex) {
     const updatedArticleList = articleList.filter((article, filterIndex) => {
@@ -30,7 +30,7 @@ function App() {
       <ul>
         {articleList.map((article, index) => {
           return (
-            <Article article={article} remove={() => removeArticle(index)} i={index} />
+            <Article article={article} remove={() => removeArticle(index)} key={index} />
 
           )
         })}
@@ -46,7 +46,6 @@ function App() {
           value={newArticle}
           onChange={(event) => {
             const inputValue = event.target.value;
-            setDisabled(inputValue === '');
             setNewArticle(inputValue);
           }} />
         <button disabled={disabled}>submit</button>

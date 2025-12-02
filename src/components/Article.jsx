@@ -1,6 +1,6 @@
-export default function Article({article, remove, i}) {
+export default function Article({article, remove}) {
   return (
-<li key={i} className='article'>
+<li className='article'>
   <span>
     {article}
   </span>
